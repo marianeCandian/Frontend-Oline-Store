@@ -6,9 +6,6 @@ import Home from './Componets/Home';
 class App extends React.Component {
   render() {
     return (
-      <BrowserRouter>
-        <Route path="/" component={ Home } />
-      </BrowserRouter>
     );
   }
 }
