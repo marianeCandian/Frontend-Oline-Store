@@ -1,9 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
+import Home from './Componets/Home';
 
-function App() {
-  return ();
+class App extends React.Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <Route path="/" component={ Home } />
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;
