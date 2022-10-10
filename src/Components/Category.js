@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class Category extends React.Component {
   render() {
@@ -7,15 +8,18 @@ class Category extends React.Component {
     return (
       <form>
         { categories.map((category) => (
-          <button
-            key={ category.id }
-            id="button"
-            data-testid="category"
-            type="button"
-            onClick={ () => getCategory(category.id) }
-          >
-            { category.name }
-          </button>
+          <div data-testid="category">
+            <button
+              key={ category.id }
+              id="button"
+              data-testid="product-detail-link"
+              type="button"
+              onClick={ () => getCategory(category.id) }
+            >
+              { category.name }
+            </button>
+            <Link  key={${...category.id}} to={`/cardproduct/${category.id}`}  />
+          </div>
         ))}
       </form>
     );
