@@ -22,7 +22,7 @@ class Category extends React.Component {
 }
 
 Category.propTypes = {
-  categories: PropTypes.arrayOf.isRequired,
-};
+  categories: PropTypes.arrayOf,
+}.isRequired;
 
 export default Category;

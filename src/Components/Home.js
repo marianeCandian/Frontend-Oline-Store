@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getCategories } from '../services/api';
+import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 import Category from './Category';
 
 class Home extends React.Component {
   state = {
     categories: [],
+    pesquisa: '',
+    arrayProdutos: [],
   };
 
   componentDidMount() {
@@ -17,15 +19,75 @@ class Home extends React.Component {
     this.setState({ categories: list });
   };
 
+  handleChange = ({ target }) => {
+    const { value } = target;
+    this.setState({
+      pesquisa: value,
+    });
+  };
+
+  clicar = async () => {
+    const { pesquisa } = this.state;
+    const products = await getProductsFromCategoryAndQuery('', pesquisa);
+    const listaDeProdutos = products.results;
+    this.setState({
+      arrayProdutos: listaDeProdutos,
+    });
+    // const { arrayProdutos } = this.state;
+    // if (arrayProdutos.length === 0) {
+    //   return 'Nenhum produto foi encontrado';
+    // }
+    // const lista = arrayProdutos.map((item) => {
+    //   const { name, price, picture, id } = item;
+    //   return (
+    //     <div key={ id } data-testid="product">
+    //       <p>{ name }</p>
+    //       <img src={ picture } alt={ name } />
+    //       <p>{price}</p>
+    //     </div>
+    //   );
+    // });
+  };
+
   render() {
-    const { categories } = this.state;
+    const { categories, pesquisa, arrayProdutos } = this.state;
     return (
       <div>
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
+        <label htmlFor="input_inicial">
+          <input
+            type="text"
+            data-testid="query-input"
+            id="input_inicial"
+            value={ pesquisa }
+            onChange={ this.handleChange }
+          />
+        </label>
+        <button
+          data-testid="query-button"
+          type="button"
+          onClick={ this.clicar }
+        >
+          Pesquisar
+        </button>
+        <div>
+          {arrayProdutos.length === 0 && <span>Nenhum produto foi encontrado</span>}
+          {
+            arrayProdutos.map((item) => (
+              <div key={ item.id } data-testid="product">
+                <p>{ item.title }</p>
+                <img src={ item.thumbnail } alt={ item.title } />
+                <p>{item.price}</p>
+              </div>
+            ))
+          }
+        </div>
         <Category categories={ categories } />
-        <Link to="/shoppingcart" data-testid="shopping-cart-button" />
+        <Link to="/shoppingcart" data-testid="shopping-cart-button">
+          Carrinho de Compras
+        </Link>
       </div>
     );
   }
