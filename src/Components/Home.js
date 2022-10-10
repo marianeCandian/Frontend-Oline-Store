@@ -33,20 +33,14 @@ class Home extends React.Component {
     this.setState({
       arrayProdutos: listaDeProdutos,
     });
-    // const { arrayProdutos } = this.state;
-    // if (arrayProdutos.length === 0) {
-    //   return 'Nenhum produto foi encontrado';
-    // }
-    // const lista = arrayProdutos.map((item) => {
-    //   const { name, price, picture, id } = item;
-    //   return (
-    //     <div key={ id } data-testid="product">
-    //       <p>{ name }</p>
-    //       <img src={ picture } alt={ name } />
-    //       <p>{price}</p>
-    //     </div>
-    //   );
-    // });
+  };
+
+  getCategory = async (categoryId) => {
+    const products = await getProductsFromCategoryAndQuery(categoryId, '');
+    const listaDeProdutos = products.results;
+    this.setState({
+      arrayProdutos: listaDeProdutos,
+    });
   };
 
   render() {
@@ -84,7 +78,7 @@ class Home extends React.Component {
             ))
           }
         </div>
-        <Category categories={ categories } />
+        <Category categories={ categories } getCategory={ this.getCategory } />
         <Link to="/shoppingcart" data-testid="shopping-cart-button">
           Carrinho de Compras
         </Link>

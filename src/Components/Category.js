@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class Category extends React.Component {
   render() {
-    const { categories } = this.props;
+    const { categories, getCategory } = this.props;
     return (
       <form>
         { categories.map((category) => (
@@ -12,6 +12,7 @@ class Category extends React.Component {
             id="button"
             data-testid="category"
             type="button"
+            onClick={ () => getCategory(category.id) }
           >
             { category.name }
           </button>
