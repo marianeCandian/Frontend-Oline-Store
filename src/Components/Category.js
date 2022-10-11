@@ -21,6 +21,7 @@ class Category extends React.Component {
     );
   }
 }
+// voltei ao que estava antes e alterei o map dentro do componente HOME.
 
 Category.propTypes = {
   categories: PropTypes.arrayOf,
