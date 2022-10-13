@@ -75,7 +75,7 @@ class Home extends React.Component {
                 data-testid="product"
               >
                 <Link
-                  to={ `/CardProduct/${item.id}` }
+                  to={ `/cardproduct/${item.id}` }
                   id={ item.id }
                   data-testid="product-detail-link"
                 >

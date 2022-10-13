@@ -12,10 +12,6 @@ class CardProduct extends React.Component {
     };
   }
 
-  // componentDidMount() {
-  //   this.getProductById();
-  // }
-
   componentDidMount() {
     const { id: { match: { params } } } = this.props;
     this.getProductById(params.id);
