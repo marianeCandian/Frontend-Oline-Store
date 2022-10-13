@@ -43,6 +43,21 @@ class Home extends React.Component {
     });
   };
 
+  // Fizemos essas funcções das linhas 48, 50 e 52 para tentar salvar os procutos no localStorage, mas ela  ta salvando null.
+
+  chargeShoppingCart = () => JSON.parse(localStorage.getItem('produtos'));
+
+  saveShoppingCart = (item) => localStorage.setItem('produtos', JSON.stringify(item));
+
+  addCar = () => {
+    const { productOnScrean } = this.state;
+    const storageLocal = this.chargeShoppingCart();
+    if (storageLocal) {
+      return this.saveShoppingCart([...storageLocal, productOnScrean]);
+    }
+    return this.saveShoppingCart([productOnScrean]);
+  };
+
   render() {
     const { categories, pesquisa, arrayProdutos } = this.state;
     return (
@@ -83,6 +98,14 @@ class Home extends React.Component {
                   <img src={ item.thumbnail } alt={ item.name } />
                   <p>{item.price}</p>
                 </Link>
+                {/* Esse botão seria para realizar as funções acimas */}
+                <button
+                  type="button"
+                  data-testid="product-add-to-cart"
+                  onClick={ () => this.addCar() }
+                >
+                  Adicionar ao Carrinho
+                </button>
               </div>
             ))
           }
