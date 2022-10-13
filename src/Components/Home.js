@@ -105,6 +105,14 @@ class Home extends React.Component {
                 >
                   Adicionar ao Carrinho
                 </button>
+                <Link to="/shoppingcart">
+                  <button
+                    type="button"
+                    data-testid="shopping-cart-button"
+                  >
+                    Carrinho de Compras
+                  </button>
+                </Link>
               </div>
             ))
           }
