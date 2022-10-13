@@ -49,13 +49,12 @@ class Home extends React.Component {
 
   saveShoppingCart = (item) => localStorage.setItem('produtos', JSON.stringify(item));
 
-  addCar = () => {
-    const { productOnScrean } = this.state;
+  addCart = (item) => {
     const storageLocal = this.chargeShoppingCart();
     if (storageLocal) {
-      return this.saveShoppingCart([...storageLocal, productOnScrean]);
+      return this.saveShoppingCart([...storageLocal, item]);
     }
-    return this.saveShoppingCart([productOnScrean]);
+    return this.saveShoppingCart([item]);
   };
 
   render() {
@@ -102,7 +101,7 @@ class Home extends React.Component {
                 <button
                   type="button"
                   data-testid="product-add-to-cart"
-                  onClick={ () => this.addCar() }
+                  onClick={ () => this.addCart(item) }
                 >
                   Adicionar ao Carrinho
                 </button>

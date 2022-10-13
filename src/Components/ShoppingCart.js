@@ -13,10 +13,10 @@ class ShoppingCart extends React.Component {
     this.getCartItems();
   }
 
-  getCartItems = async () => {
-    if (localStorage.getItem('produto')) {
-      const local = localStorage.getItem('produto');
-      const lista = await JSON.parse(local);
+  getCartItems = () => {
+    if (localStorage.getItem('produtos')) {
+      const local = localStorage.getItem('produtos');
+      const lista = JSON.parse(local);
       this.setState({
         listaProdutos: lista,
         tamanho: true,
@@ -43,7 +43,8 @@ class ShoppingCart extends React.Component {
                   <p
                     data-testid="shopping-cart-product-quantity"
                   >
-                    {`Quantidade: ${item.quantity}`}
+                    {`Quantidade: 
+                    ${listaProdutos.filter((counter) => counter.id === item.id).length}`}
                   </p>
                 </div>
               ))}

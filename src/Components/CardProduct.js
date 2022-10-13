@@ -24,6 +24,19 @@ class CardProduct extends React.Component {
     });
   };
 
+  chargeShoppingCart = () => JSON.parse(localStorage.getItem('produtos'));
+
+  saveShoppingCart = (item) => localStorage.setItem('produtos', JSON.stringify(item));
+
+  addCart = () => {
+    const { productOnScrean } = this.state;
+    const storageLocal = this.chargeShoppingCart();
+    if (storageLocal) {
+      return this.saveShoppingCart([...storageLocal, productOnScrean]);
+    }
+    return this.saveShoppingCart([productOnScrean]);
+  };
+
   render() {
     const { productOnScrean } = this.state;
 
@@ -38,7 +51,7 @@ class CardProduct extends React.Component {
           data-testid="product-detail-image"
         />
         <p data-testid="product-detail-price">{productOnScrean.price}</p>
-        <Link to="/ShoppingCart">
+        <Link to="/shoppingcart">
           <button
             type="button"
             data-testid="shopping-cart-button"
@@ -46,6 +59,13 @@ class CardProduct extends React.Component {
             Carrinho de Compras
           </button>
         </Link>
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ () => this.addCart() }
+        >
+          Adicionar ao Carrinho
+        </button>
 
       </div>
     );
