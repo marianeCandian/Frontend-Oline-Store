@@ -106,7 +106,6 @@ class Home extends React.Component {
                   <img src={ item.thumbnail } alt={ item.name } />
                   <p>{item.price}</p>
                 </Link>
-                {/* Esse botão seria para realizar as funções acimas */}
                 <button
                   type="button"
                   data-testid="product-add-to-cart"
@@ -115,14 +114,14 @@ class Home extends React.Component {
                 >
                   Adicionar ao Carrinho
                 </button>
-                <Link to="/shoppingcart">
+                {/* <Link to="/shoppingcart">
                   <button
                     type="button"
                     data-testid="shopping-cart-button"
                   >
                     Carrinho de Compras
                   </button>
-                </Link>
+                </Link> */}
               </div>
             ))
           }
