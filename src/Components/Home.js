@@ -43,18 +43,27 @@ class Home extends React.Component {
     });
   };
 
-  // Fizemos essas funcções das linhas 48, 50 e 52 para tentar salvar os procutos no localStorage, mas ela  ta salvando null.
-
   chargeShoppingCart = () => JSON.parse(localStorage.getItem('produtos'));
 
   saveShoppingCart = (item) => localStorage.setItem('produtos', JSON.stringify(item));
 
-  addCart = (item) => {
+  addCart = ({ target }) => {
+    const { value } = target;
+    const { arrayProdutos } = this.state;
+    const result = arrayProdutos.find((product) => product.id === value);
     const storageLocal = this.chargeShoppingCart();
     if (storageLocal) {
-      return this.saveShoppingCart([...storageLocal, item]);
+      if (storageLocal.find((e) => e.id === value)) {
+        storageLocal.quantity += 1;
+        return this.saveShoppingCart([...storageLocal]);
+      }
+      result.quantity = 1;
+      return this.saveShoppingCart([...storageLocal, result]);
     }
-    return this.saveShoppingCart([item]);
+    if (result) {
+      result.quantity = 1;
+      return this.saveShoppingCart([result]);
+    }
   };
 
   render() {
@@ -97,14 +106,22 @@ class Home extends React.Component {
                   <img src={ item.thumbnail } alt={ item.name } />
                   <p>{item.price}</p>
                 </Link>
-                {/* Esse botão seria para realizar as funções acimas */}
                 <button
                   type="button"
                   data-testid="product-add-to-cart"
-                  onClick={ () => this.addCart(item) }
+                  onClick={ this.addCart }
+                  value={ item.id }
                 >
                   Adicionar ao Carrinho
                 </button>
+                {/* <Link to="/shoppingcart">
+                  <button
+                    type="button"
+                    data-testid="shopping-cart-button"
+                  >
+                    Carrinho de Compras
+                  </button>
+                </Link> */}
               </div>
             ))
           }

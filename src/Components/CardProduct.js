@@ -61,6 +61,7 @@ class CardProduct extends React.Component {
         </Link>
         <button
           type="button"
+          value={ productOnScrean.id }
           data-testid="product-detail-add-to-cart"
           onClick={ () => this.addCart() }
         >
